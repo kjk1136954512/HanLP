@@ -54,6 +54,14 @@ environment variable and HanLP will pick it up at the next startup.
 export HANLP_URL=http://mirrors-hk.miduchina.com/hanlp/
 ```
 
+### Use Mirror Sites for Hugging Face 🤗 Transformers
+
+If the locale of your PC is ``zh_CN`` then the transformer models will be downloaded from the [tuna mirror site](https://mirrors.tuna.tsinghua.edu.cn/help/hugging-face-models/). If you also want to use mirror sites on a non-zh_CN server, you can set the ``HF_MIRROR`` environment variable.
+
+```bash
+export HF_MIRROR=tuna
+```
+
 ## Control Verbosity
 
 By default, HanLP will print progressive message to the console when you load a model. If you want to silence it, use the 
@@ -62,3 +70,13 @@ following environment variable.
 ```bash
 export HANLP_VERBOSE=0
 ```
+
+Note that these variables can be configured using Python too. You just need to modify them before ``import hanlp``.
+
+```python
+from hanlp_common import constant
+constant.HANLP_VERBOSE = False
+constant.HF_MIRROR = 'tuna'
+import hanlp
+```
+

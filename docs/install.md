@@ -72,15 +72,17 @@ Occasionally, some errors might occur the first time you load a model, in which 
 If the auto-download fails, you can either:
 
 1. Retry as our file server might be busy serving users from all over the world.
-1. Follow the message on your terminal, which often guides you to manually download a `zip` file to a particular path. 
-1. Use a [mirror site](https://hanlp.hankcs.com/docs/configure.html#use-mirror-sites) which could be faster and stabler in your region.
+2. Follow the message on your terminal, which often guides you to manually download a `zip` file to a particular path. 
+3. Use a [mirror site](https://hanlp.hankcs.com/docs/configure.html#use-mirror-sites) which could be faster and stabler in your region.
+4. If the log shows errors of Hugging Face 🤗 Transformers, try ``export HF_MIRROR=tuna`` to use the [tuna mirror site](https://mirrors.tuna.tsinghua.edu.cn/help/hugging-face-models/).
 
 ### Server without Internet
 
 If your server has no Internet access at all, just debug your codes on your local PC and copy the following directories to your server via a USB disk.
 
 1. `~/.hanlp`: the home directories for HanLP models.
-1. `~/.cache/huggingface`: the home directory for Hugging Face 🤗 Transformers.
+2. `~/.cache/huggingface`: the home directory for Hugging Face 🤗 Transformers. 
+    - If the locale of your PC is ``zh_CN`` then the transformer models are downloaded from the [tuna mirror site](https://mirrors.tuna.tsinghua.edu.cn/help/hugging-face-models/). Make sure your server is also using ``zh_CN`` otherwise you may want to ``export HF_MIRROR=tuna`` on your server.
 
 ### Import Error
 

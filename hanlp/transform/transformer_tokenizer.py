@@ -4,7 +4,7 @@
 import warnings
 from typing import Union, Optional
 
-from hanlp_common.constant import BOS, EOS
+from hanlp_common.constant import BOS, EOS, HF_MIRROR
 from hanlp_common.structure import SerializableDict
 from hanlp.layers.transformers.pt_imports import PreTrainedTokenizer, PretrainedConfig, AutoTokenizer
 from hanlp_trie import DictInterface
@@ -60,7 +60,7 @@ class TransformerTextTokenizer(TransformerTokenizer):
             output_key = [f'{output_key}_{key}' for key in self._KEY]
         self.output_key = output_key
         if isinstance(tokenizer, str):
-            tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+            tokenizer = AutoTokenizer.from_pretrained(tokenizer, mirror=HF_MIRROR)
         self.tokenizer = tokenizer
 
     def __call__(self, sample: dict):
@@ -195,7 +195,8 @@ class TransformerSequenceTokenizer(TransformerTokenizer):
             cls_token_at_end = xlnet
             pad_on_left = xlnet
         if isinstance(tokenizer, str):
-            tokenizer = AutoTokenizer.from_pretrained(tokenizer, use_fast=use_fast, do_basic_tokenize=do_basic_tokenize)
+            tokenizer = AutoTokenizer.from_pretrained(tokenizer, use_fast=use_fast, do_basic_tokenize=do_basic_tokenize,
+                                                      mirror=HF_MIRROR)
         if use_fast:
             # Dirty fix upstream bug: https://github.com/hankcs/HanLP/issues/1602
             if hasattr(tokenizer, '_tokenizer') and hasattr(tokenizer._tokenizer, 'no_truncation'):
